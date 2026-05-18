@@ -36,10 +36,12 @@ import Notifications from './pages/bonus/Notifications';
 import Escalations from './pages/bonus/Escalations';
 import Analytics from './pages/bonus/Analytics';
 
-const ROLE_USER_MAP = { employee: 'emp1', manager: 'mgr1', admin: 'admin1' };
+import Login from './pages/auth/Login';
 
 export default function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [role, setRole] = useState('employee');
+  const [currentUserId, setCurrentUserId] = useState('emp1');
   const [page, setPage] = useState('dashboard');
   const [modal, setModal] = useState(null);
   const [activeQ, setActiveQ] = useState('Q1 (Jul)');
@@ -62,7 +64,6 @@ export default function App() {
   const { goals, addGoal, approveGoal, returnGoal, updateGoal, unlockGoal, updateActual, updateQStatus, deleteGoal } = useGoals();
   const { auditLog, addAudit } = useAudit();
 
-  const currentUserId = ROLE_USER_MAP[role];
   const currentUser = EMPLOYEES[currentUserId];
   const qKey = QUARTER_KEY_MAP[activeQ] || 'q1Actual';
 
@@ -98,6 +99,19 @@ export default function App() {
         channel: 'teams', deepLink: '/approvals'
       });
     }
+  }
+
+  function handleLogin(assignedRole, userId) {
+    setRole(assignedRole);
+    setCurrentUserId(userId);
+    setPage('dashboard');
+    setIsAuthenticated(true);
+  }
+
+  function handleLogout() {
+    setIsAuthenticated(false);
+    setRole('employee');
+    setCurrentUserId('emp1');
   }
 
   function renderPage() {
@@ -157,12 +171,17 @@ export default function App() {
     return <EmpDashboard goals={goals} empId={currentUserId} activeQ={activeQ} qKey={qKey} setPage={setPage} setModal={setModal} />;
   }
 
+  if (!isAuthenticated) {
+    return <Login onLogin={handleLogin} />;
+  }
+
   return (
     <div className="app">
       <Sidebar
         role={role} page={page} setPage={setPage} setRole={setRole}
         pendingApprovals={pendingApprovals} unreadNotifs={unreadNotifs}
         currentUser={currentUser} isOpen={isSidebarOpen} closeSidebar={() => setIsSidebarOpen(false)}
+        onLogout={handleLogout}
       />
       <div className="main">
         <div className="mobile-header">

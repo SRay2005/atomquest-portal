@@ -1,9 +1,8 @@
 import React from 'react';
 import { NAV_ITEMS } from '../data/seedData';
 
-export default function Sidebar({ role, page, setPage, setRole, pendingApprovals, unreadNotifs, currentUser, isOpen, closeSidebar }) {
+export default function Sidebar({ role, page, setPage, pendingApprovals, unreadNotifs, currentUser, isOpen, closeSidebar, onLogout }) {
   const items = NAV_ITEMS[role] || [];
-  const roleLabels = { employee: 'Emp', manager: 'Mgr', admin: 'Admin' };
 
   return (
     <>
@@ -34,23 +33,15 @@ export default function Sidebar({ role, page, setPage, setRole, pendingApprovals
         })}
       </nav>
       <div className="sidebar-footer">
-        <div className="role-switcher">
-          {Object.entries(roleLabels).map(([r, label]) => (
-            <button
-              key={r}
-              className={`role-btn${role === r ? ' active' : ''}`}
-              onClick={() => { setRole(r); setPage('dashboard'); closeSidebar(); }}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
         {currentUser && (
-          <div className="sidebar-user">
+          <div className="sidebar-user" style={{ marginBottom: 12 }}>
             <strong>{currentUser.name}</strong>
-            {currentUser.dept}
+            <div className="text-muted text-sm">{currentUser.dept}</div>
           </div>
         )}
+        <button className="btn btn-secondary" style={{ width: '100%', justifyContent: 'center' }} onClick={onLogout}>
+          Logout
+        </button>
       </div>
       </div>
     </>

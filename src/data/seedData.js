@@ -29,10 +29,10 @@ export const QUARTER_KEY_MAP = {
 
 /* ─── Employees ─── */
 export const EMPLOYEES = {
-  emp1:  { name: 'Priya Sharma', dept: 'Sales',      role: 'employee', manager: 'mgr1',  email: 'priya.sharma@atomberg.com',  azureGroup: 'Sales-Team'  },
-  emp2:  { name: 'Arjun Mehta',  dept: 'Operations',  role: 'employee', manager: 'mgr1',  email: 'arjun.mehta@atomberg.com',   azureGroup: 'Ops-Team'    },
-  mgr1:  { name: 'Neha Kapoor',  dept: 'All Teams',   role: 'manager',                    email: 'neha.kapoor@atomberg.com',   azureGroup: 'L1-Managers' },
-  admin1:{ name: 'Rahul Singh',  dept: 'HR',          role: 'admin',                      email: 'rahul.singh@atomberg.com',   azureGroup: 'HR-Admins'   },
+  emp1:  { name: 'Priya Sharma', dept: 'Sales',      role: 'employee', manager: 'mgr1',  email: 'priya.sharma@atomberg.com',  azureGroup: 'Sales-Team',  password: 'emp123' },
+  emp2:  { name: 'Arjun Mehta',  dept: 'Operations', role: 'employee', manager: 'mgr1',  email: 'arjun.mehta@atomberg.com',   azureGroup: 'Ops-Team',    password: 'emp123' },
+  mgr1:  { name: 'Neha Kapoor',  dept: 'All Teams',  role: 'manager',                    email: 'neha.kapoor@atomberg.com',   azureGroup: 'L1-Managers', password: 'mgr123' },
+  admin1:{ name: 'Rahul Singh',  dept: 'HR',         role: 'admin',                      email: 'rahul.singh@atomberg.com',   azureGroup: 'HR-Admins',   password: 'admin123' },
 };
 
 /* ─── Initial Goals ─── */
