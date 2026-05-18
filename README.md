@@ -1,70 +1,74 @@
-# Getting Started with Create React App
+# ⚛ AtomQuest — In-House Goal Setting & Tracking Portal
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> **Submission for AtomQuest Hackathon 1.0**
 
-## Available Scripts
+Organizations that rely on manual or fragmented goal-tracking methods often struggle with alignment, visibility, and accountability. The **AtomQuest Portal** is a structured, digital SPA (Single Page Application) that eliminates these pain points. It supports the full lifecycle of employee goals—from creation and alignment to quarterly check-ins and performance visibility—while being intuitive, reliable, and audit-ready.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 🎯 Key Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Phase 1: Goal Creation & Approval
+- **Intuitive Goal Creation:** Employees can define goals, select Thrust Areas, and assign varying Units of Measurement (Numeric, %, Timeline, Zero-based).
+- **Strict Validation Rules:** System-enforced validation ensures a maximum of 8 goals, a minimum of 10% weightage per goal, and a strict requirement that total weightage must equal exactly 100%.
+- **Manager Workflows:** L1 Managers can review, approve (with inline edits to targets/weightages), or return goals for rework with structured feedback.
+- **Shared Goals Sync:** Departmental KPIs pushed to multiple employees sync automatically when the primary owner logs progress.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Phase 2: Achievement Tracking
+- **Quarterly Check-ins:** Employees log their actual achievements across dynamically enforced quarterly windows.
+- **Real-Time Scoring:** The embedded scoring engine computes progress mathematically based on the specific Unit of Measurement.
+- **Manager Feedback:** Managers review planned vs. actual achievements and append structured check-in comments.
 
-### `npm test`
+### 🚀 Bonus Features Implemented
+1. **SSO / Microsoft Entra ID Simulation:** Org hierarchies and Role assignments are dynamically mapped from Azure AD attributes.
+2. **Notification Engine:** Simulated Email & Microsoft Teams adaptive cards with deep links to goal sheets.
+3. **Escalations Module:** Admin-configurable rules (triggers, delays, chains) for overdue actions with an active resolution log.
+4. **Analytics Dashboard:** Visualizations powered by `recharts` featuring QoQ trends, heatmaps, and a manager effectiveness leaderboard.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 🏗 Architecture & Tech Stack
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Frontend Framework:** React 18
+- **Styling:** Vanilla CSS with custom property tokens (No heavy CSS frameworks to ensure ultra-fast load times and strict UI control).
+- **Charting:** Recharts
+- **State Management:** Lifted local state via custom Hooks (`useGoals`, `useAudit`) to eliminate boilerplate and ensure memory efficiency (0 dependency on heavy state libraries like Redux).
+- **Cost Optimization:** Architected as a pure static SPA, eliminating expensive backend compute costs during demo and staging phases.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🚦 Suggested Demo Journey for Judges
 
-### `npm run eject`
+For the best evaluation experience, we highly recommend walking through the application in the following order using the **Role Switcher** located at the bottom of the left sidebar:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. **Employee Goal Creation:** Click **Emp** in the sidebar. Go to **My Goals**. Click "+ Add Goal", fill out the form, and submit. Test the validation errors by trying to exceed 100% total weightage.
+2. **Manager Review:** Switch role to **Mgr**. Go to **Approvals**. You will see the goal you just created. Edit the target/weight inline, then click **Approve**.
+3. **Employee Check-in:** Switch back to **Emp**. Go to **Check-in**. Enter actual achievements for Q1 to observe the live, color-coded score computation engine.
+4. **Manager Check-in:** Switch to **Mgr**. Go to **Check-in**. Toggle between different employees and log a check-in comment.
+5. **Admin Reporting & Export:** Switch to **Admin**. Go to **Reports** and click **Export CSV** to demonstrate the offline data export capability.
+6. **Bonus Modules:** While still on the **Admin** role, browse through **Escalations** to view the rule configurator, **Analytics** for data visualizations, and **SSO / Entra ID** to preview the authentication flow.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🛠 Local Setup Instructions
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+To run this project locally:
 
-## Learn More
+1. Clone the repository
+2. Navigate to the project directory:
+   ```bash
+   cd atomquest-portal
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+4. Start the development server:
+   ```bash
+   npm start
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The application will automatically open in your default browser at `http://localhost:3000`.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+*Built with ❤️ for AtomQuest Hackathon 1.0*
