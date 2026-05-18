@@ -6,16 +6,31 @@ export default function Approvals({ goals, approveGoal, returnGoal, updateGoal, 
   const [reworkComments, setReworkComments] = useState({});
   const [edits, setEdits] = useState({});
   const [successMsg, setSuccessMsg] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
 
   const pendingGoals = goals.filter(g => g.status === 'pending');
   const reviewedGoals = goals.filter(g => ['approved', 'rework'].includes(g.status));
 
   function handleApprove(goal) {
+    setErrorMsg('');
     const edit = edits[goal.id];
+    let finalWeight = goal.weightage;
+    
     if (edit) {
+      finalWeight = edit.weightage !== undefined ? parseInt(edit.weightage) || goal.weightage : goal.weightage;
+      if (finalWeight !== goal.weightage) {
+        // Validate that total weightage doesn't exceed 100%
+        const otherGoals = goals.filter(g => g.emp === goal.emp && g.id !== goal.id && g.status !== 'rework');
+        const currentTotal = otherGoals.reduce((sum, g) => sum + g.weightage, 0);
+        if (currentTotal + finalWeight > 100) {
+          setErrorMsg(`Cannot approve: ${EMPLOYEES[goal.emp]?.name}'s total weightage would be ${currentTotal + finalWeight}% (Maximum 100%).`);
+          return;
+        }
+      }
+
       updateGoal(goal.id, {
         target: edit.target !== undefined ? edit.target : goal.target,
-        weightage: edit.weightage !== undefined ? parseInt(edit.weightage) || goal.weightage : goal.weightage
+        weightage: finalWeight
       });
     }
     approveGoal(goal.id);
@@ -46,6 +61,7 @@ export default function Approvals({ goals, approveGoal, returnGoal, updateGoal, 
     <div className="page">
       <div className="page-header"><div><div className="page-title">Approvals</div><div className="page-sub">Review and approve team goals</div></div></div>
 
+      {errorMsg && <div className="alert alert-danger" style={{ marginBottom: 16 }}>{errorMsg}</div>}
       {successMsg && <div className="alert alert-success success-msg">{successMsg}</div>}
 
       {pendingGoals.length === 0 ? (

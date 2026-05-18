@@ -11,11 +11,13 @@ function calcScore(goal, actual) {
   if (isNaN(a)) return 0;
 
   if (uom === 'Min (Numeric)' || uom === 'Min (%)') {
+    if (a >= t) return 100;
     return t > 0 ? Math.min(100, Math.round((a / t) * 100)) : 0;
   }
 
   if (uom === 'Max (Numeric)' || uom === 'Max (%)') {
-    return a > 0 ? Math.min(100, Math.round((t / a) * 100)) : 0;
+    if (a <= t) return 100;
+    return a > 0 ? Math.min(100, Math.round((t / a) * 100)) : 100;
   }
 
   if (uom === 'Zero-based') {
