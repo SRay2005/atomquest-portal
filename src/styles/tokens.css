@@ -1,0 +1,48 @@
+/* ═══════════════════════════════════════════
+   AtomQuest Portal — Design Tokens
+   ═══════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Sora:wght@300;400;600;700;800&display=swap');
+
+:root {
+  --bg:       #0d0f14;
+  --surface:  #161a23;
+  --surface2: #1e2330;
+  --border:   #2a3045;
+  --accent:   #f0a500;
+  --accent2:  #3b82f6;
+  --success:  #22c55e;
+  --warn:     #f59e0b;
+  --danger:   #ef4444;
+  --text:     #e8ecf4;
+  --muted:    #6b7694;
+  --tag:      #252d3d;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body, #root { height: 100%; }
+
+body {
+  font-family: 'Sora', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: rgba(240,165,0,0.3);
+  color: #fff;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+input[type="number"] { -moz-appearance: textfield; }
