@@ -70,5 +70,4 @@ To run this project locally:
 
 The application will automatically open in your default browser at `http://localhost:3000`.
 
----
-*Built with ❤️ for AtomQuest Hackathon 1.0*
+
